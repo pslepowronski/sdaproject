@@ -10,9 +10,6 @@ public class InvoiceItem {
     @GeneratedValue
     private Integer id;
 
-    @Column(name = "product_id")
-    private Integer productId;
-
     private Integer quantity;
 
     private Integer sum;

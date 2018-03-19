@@ -19,18 +19,3 @@ public class SdaprojectApplication extends SpringBootServletInitializer{
 		SpringApplication.run(SdaprojectApplication.class, args);
 	}
 }
-
-
-//@SpringBootApplication
-//@ComponentScan(value = "pl.sda.springclass")
-//public class SpringClassApplication extends SpringBootServletInitializer {
-//
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		return application.sources(SpringClassApplication.class);
-//	}
-//
-//	public static void main(String[] args) throws Exception {
-//		SpringApplication.run(SpringClassApplication.class, args);
-//	}
-//}

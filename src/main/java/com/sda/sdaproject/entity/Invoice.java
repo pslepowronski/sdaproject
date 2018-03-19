@@ -7,7 +7,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "invoice")
-public class Invoice {
+public class
+Invoice {
 
     @Id
     @GeneratedValue
@@ -16,17 +17,11 @@ public class Invoice {
     @Column(name = "invoice_number")
     private String invoiceNumber;
 
-    @Column(name = "buyer_id")
-    private Integer buyerId;
-
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
     @Column(name = "sell_by_date")
     private LocalDate sellByDate;
-
-    @Column(name = "user_id")
-    private Integer userId;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name ="payment_type")
