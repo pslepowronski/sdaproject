@@ -14,9 +14,6 @@ public class InvoiceItem {
 
     private Integer sum;
 
-    @Column(name = "invoice_id")
-    private Integer invoiceId;
-
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;

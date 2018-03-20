@@ -1,10 +1,10 @@
 package com.sda.sdaproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
 
+import javax.persistence.*;
+
+@Getter
 @Entity
 @Table(name = "user")
 public class User {
@@ -13,7 +13,9 @@ public class User {
     @GeneratedValue
     private Integer id;
 
+    @Column(name = "login")
     private String login;
 
+    @Column(name = "password")
     private String password;
 }
