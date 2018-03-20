@@ -1,7 +1,10 @@
 package com.sda.sdaproject.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
+@Getter
 @Entity
 @Table(name = "buyer")
 public class Buyer {

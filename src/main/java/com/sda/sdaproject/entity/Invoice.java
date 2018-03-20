@@ -1,10 +1,14 @@
 package com.sda.sdaproject.entity;
 
 import com.sda.sdaproject.type.PaymentType;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Builder
+@Getter
 @Entity
 @Table(name = "invoice")
 public class
