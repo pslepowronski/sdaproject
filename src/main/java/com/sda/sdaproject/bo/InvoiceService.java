@@ -57,5 +57,9 @@ public class InvoiceService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteInvoice(Integer id){
+        invoiceRepository.deleteById(id);
+    }
+
 
 }

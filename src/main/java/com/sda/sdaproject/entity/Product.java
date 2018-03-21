@@ -2,9 +2,12 @@ package com.sda.sdaproject.entity;
 
 
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Builder
 @Entity
 @Table(name = "product")
 public class Product {

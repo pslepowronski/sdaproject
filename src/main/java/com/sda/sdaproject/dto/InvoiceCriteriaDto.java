@@ -15,5 +15,4 @@ public class InvoiceCriteriaDto {
     private LocalDate paymentDateto;
     private LocalDate sellDatefrom;
     private LocalDate sellDateto;
-    private String buyerName;
 }

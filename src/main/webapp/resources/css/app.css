@@ -1,0 +1,53 @@
+body{
+    background: white;
+    color: black;
+}
+#contener{
+    background: white;
+}
+#menu{
+    background: cornflowerblue;
+    color: black;
+    text-align: center;
+    border: #ffffd7 2px solid;
+    float: left;
+    width: 100%;
+}
+#menu a{
+    float: left;
+    display: block;
+    margin: 0;
+    padding: 4px 8px;
+    color: #ffffd7;
+    text-decoration: none;
+    border: 1px solid #0000c6;
+    border-bottom: none;
+    background: #0000a0;
+}
+#menu a:hover{
+    background: #0000d5;
+    color: #ffffff;
+    text-decoration: none;
+}
+#main{
+    background: white;
+    color: black;
+    width:66%;
+    float: left;
+    padding: 1%;
+}
+#main2{
+    background: white;
+    color: black;
+    width:30%;
+    float: left;
+    padding: 1%;
+    text-align: center;
+}
+#footer{
+    clear: both;
+    width: 100%;
+    background: cornflowerblue;
+    color: black;
+    text-align: center;
+}
