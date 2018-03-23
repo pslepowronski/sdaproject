@@ -1,14 +1,23 @@
 package com.sda.sdaproject.bo;
 
+import com.sda.sdaproject.dto.FullInvoiceDto;
 import com.sda.sdaproject.dto.InvoiceCriteriaDto;
 import com.sda.sdaproject.dto.InvoiceDto;
-import com.sda.sdaproject.entity.Invoice;
+import com.sda.sdaproject.dto.InvoiceItemDto;
+import com.sda.sdaproject.entity.*;
 import com.sda.sdaproject.repository.BuyerRepository;
+import com.sda.sdaproject.repository.InvoiceItemRepository;
 import com.sda.sdaproject.repository.InvoiceRepository;
+import com.sda.sdaproject.repository.UserRepository;
+import com.sda.sdaproject.type.PaymentType;
+import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -18,11 +27,16 @@ public class InvoiceService {
 
     private InvoiceRepository invoiceRepository;
     private BuyerRepository buyerRepository;
+    private UserRepository userRepository;
+    private InvoiceItemRepository invoiceItemRepository;
 
     @Autowired
-    public InvoiceService(InvoiceRepository invoiceRepository, BuyerRepository buyerRepository){
-        this.invoiceRepository=invoiceRepository;
+    public InvoiceService(InvoiceRepository invoiceRepository, BuyerRepository buyerRepository, UserRepository userRepository,
+                          InvoiceItemRepository invoiceItemRepository){
+        this.invoiceRepository = invoiceRepository;
         this.buyerRepository = buyerRepository;
+        this.userRepository = userRepository;
+        this.invoiceItemRepository = invoiceItemRepository;
     }
 
     public List<InvoiceDto> findByPaymentDateCriteria(InvoiceCriteriaDto c){
@@ -60,6 +74,56 @@ public class InvoiceService {
     public void deleteInvoice(Integer id){
         invoiceRepository.deleteById(id);
     }
+
+    public FullInvoiceDto mapFullInvoice(Invoice i){
+        return FullInvoiceDto.builder()
+                .id(i.getId())
+                .invoiceNumber(i.getInvoiceNumber())
+                .paymentDate(i.getPaymentDate())
+                .sellByDate(i.getSellByDate())
+                .buyer(i.getBuyer())
+                .user(i.getUser())
+                .invoiceItems(findListOfInvoiceItemsByInvoiceId(i.getId()))
+                .invoiceSum(getSumofInvoice(i.getId()))
+                .build();
+    }
+
+    private InvoiceItemDto mapIIToIIDto(InvoiceItem ii){
+        return InvoiceItemDto.builder()
+                .id(ii.getId())
+                .invoice(ii.getInvoice())
+                .product(ii.getProduct())
+                .sum(ii.getSum())
+                .build();
+    }
+
+    private List<InvoiceItemDto> findListOfInvoiceItemsByInvoiceId(Integer id){
+        return invoiceItemRepository.findInvoiceItemsByInvoice_Id(id).stream().map(this::mapIIToIIDto)
+                .collect(Collectors.toList());
+    }
+
+    private BigDecimal getSumofInvoice(Integer id){
+        List<InvoiceItemDto> invoiceItemDtosList = findListOfInvoiceItemsByInvoiceId(id);
+        BigDecimal sum = new BigDecimal(0);
+        for (InvoiceItemDto itemDto : invoiceItemDtosList){
+            sum = sum.add(itemDto.getSum());
+        }
+        if(invoiceRepository.findById(id).getPaymentType().equals(PaymentType.CREDIT1M)){
+            sum=sum.multiply(new BigDecimal(1.1));
+        }else if(invoiceRepository.findById(id).getPaymentType().equals(PaymentType.CREDIT3M)){
+            sum = sum.multiply(new BigDecimal(1.3));
+        }
+        return sum;
+    }
+
+    public FullInvoiceDto findFullInvoiceById(Integer id){
+       Invoice invoice = invoiceRepository.findById(id);
+       return mapFullInvoice(invoice);
+    }
+
+
+
+
 
 
 }

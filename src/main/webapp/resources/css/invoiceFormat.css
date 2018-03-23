@@ -1,0 +1,28 @@
+#contener{
+    background: white;
+}
+#title{
+    float:left;
+    width: 61%;
+    padding: 1%;
+}
+#dates{
+    float: left;
+    width: 35%;
+    padding: 1%;
+}
+#buyer{
+    float: right;
+    width: 40%;
+}
+#invoiceItems{
+    clear: both;
+}
+#invoiceItems li{
+    list-style: block;
+}
+#sumAndPay{
+    float: right;
+    text-size: 150%;
+    text-decoration: underline;
+}

@@ -12,6 +12,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     List<Invoice> findByPaymentDateBetween(LocalDate from, LocalDate to);
     List<Invoice> findBySellByDateBetween(LocalDate from, LocalDate to);
-    Invoice deleteById(Integer id);
+    void deleteById(Integer id);
+    Invoice findInvoiceById(Integer id);
+    Invoice findById(Integer id);
 
 }

@@ -13,6 +13,7 @@
     <link href="${pageContext.servletContext.contextPath}/resources/css/app.css" rel="stylesheet"/>
 </head>
 <body>
+<div id="contener">
 <h1>Witaj w aplikacji</h1>
 <table>
     <thead>
@@ -26,6 +27,9 @@
     </tr>
     </tbody>
 </table>
-
+    <div id="footer">
+        &copy; 2018
+    </div>
+</div>
 </body>
 </html>

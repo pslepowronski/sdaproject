@@ -1,5 +1,7 @@
 package com.sda.sdaproject.dto;
 
+import com.sda.sdaproject.entity.Invoice;
+import com.sda.sdaproject.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class InvoiceItemDto {
     private Integer id;
-    private Integer productId;
+    private Product product;
     private Integer quantity;
     private BigDecimal sum;
-    private Integer invoiceId;
+    private Invoice invoice;
+
 }

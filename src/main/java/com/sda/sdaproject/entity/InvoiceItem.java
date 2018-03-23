@@ -1,7 +1,11 @@
 package com.sda.sdaproject.entity;
 
-import javax.persistence.*;
+import lombok.Getter;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Getter
 @Entity
 @Table(name = "invoice_item")
 public class InvoiceItem {
@@ -12,7 +16,7 @@ public class InvoiceItem {
 
     private Integer quantity;
 
-    private Integer sum;
+    private BigDecimal sum;
 
     @ManyToOne
     @JoinColumn(name = "invoice_id")
