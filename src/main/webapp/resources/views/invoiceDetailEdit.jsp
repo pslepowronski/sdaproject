@@ -1,11 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: ANIA
-  Date: 2018-03-22
-  Time: 19:05
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,12 +7,13 @@
 <title>Invoice details</title>
 </head>
 <body>
+<form:form modelAttribute="fullInvoiceAfterEdit" action="editFullInvoice" method="post">
 <div id="contener">
     <div id="title">
-        ${invoice.invoiceNumber}
+        ${invoice.invoiceNumber} <form:input path="invoiceNumber"></form:input>
     </div>
     <div id="dates">
-        Data sprzedazy: ${invoice.sellByDate}<br>
+        Data sprzedazy: ${invoice.sellByDate} <form:input path="sellByDate" value="${invoice.sellByDate}"></form:input><br>
         Data platnisci: ${invoice.paymentDate}
     </div>
     <div id="buyer">
@@ -26,8 +21,7 @@
     </div>
     <div id="invoiceItems">
         <c:forEach items="${invoice.invoiceItems}" var="invoiceItem">
-            ${invoiceItem.product.name},
-            ${invoiceItem.product.price},
+            ${invoiceItem.product},
             ${invoiceItem.quantity},
             ${invoiceItem.sum}<br>
         </c:forEach>
@@ -38,8 +32,9 @@
         ${invoice.user.login}
     </div>
 </div>
+</form:form>
 
-<a href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/invoiceEdit">Edytuj</a>
+<a href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/costEdit">Edytuj</a>
 <a href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/print">Drukuj</a>
 </body>
 </html>

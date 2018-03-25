@@ -72,6 +72,11 @@ public class InvoiceService {
     }
 
     public void deleteInvoice(Integer id){
+        for(InvoiceItem iItem : invoiceItemRepository.findAll()){
+            if(iItem.getInvoice().getId()==id){
+                invoiceItemRepository.delete(iItem.getId());
+            }
+        }
         invoiceRepository.deleteById(id);
     }
 
@@ -98,8 +103,8 @@ public class InvoiceService {
     }
 
     private List<InvoiceItemDto> findListOfInvoiceItemsByInvoiceId(Integer id){
-        return invoiceItemRepository.findInvoiceItemsByInvoice_Id(id).stream().map(this::mapIIToIIDto)
-                .collect(Collectors.toList());
+        return invoiceItemRepository.findInvoiceItemsByInvoice_Id(id).stream()
+                .map(this::mapIIToIIDto).collect(Collectors.toList());
     }
 
     private BigDecimal getSumofInvoice(Integer id){
@@ -120,6 +125,7 @@ public class InvoiceService {
        Invoice invoice = invoiceRepository.findById(id);
        return mapFullInvoice(invoice);
     }
+
 
 
 

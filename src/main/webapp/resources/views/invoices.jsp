@@ -10,16 +10,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="${pageContext.servletContext.contextPath}/resources/css/app.css" rel="stylesheet"/>
     <title>InvoicesPage</title>
 </head>
 <body>
 <div id="contener">
+    <div id="nav">
+    <jsp:include page="nawigacja.jsp"/>
+    </div>
     <div id="menu">
 
     </div>
     <div id="main">
-        <table>
+        <table class="table table hover">
             <thead>
             <tr>
                 <td>Numer faktury</td>
@@ -37,10 +41,10 @@
                     <td>${invoice.paymentType}</td>
                     <td>${invoice.paymentType}</td>
                     <td>${invoice.buyer}</td>
-                    <td><a href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}">Szczegóły</a></td>
+                    <td><a class="btn btn-info btn-sm" href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}">Szczegóły</a></td>
                     <td>
                         <form action="invoice/delete" method="post">
-                            <input type="submit" name="deleteInvoice" value="Usun"/>
+                            <input class="btn btn-danger btn-sm" type="submit" name="deleteInvoice" value="Usun"/>
                             <input type="hidden" name="invoiceId" value="${invoice.id}"/>
                         </form>
                     </td>
@@ -48,13 +52,13 @@
             </c:forEach>
             </tbody>
         </table>
-        <a href="${pageContext.servletContext.contextPath}/invoice/add">Dodaj fakture</a>
+
 
     </div>
     <div id="main2">
 
         <form:form modelAttribute="criteria" action="search" method="post">
-            <table>
+            <table class="table table-striped">
                 <tr>
                     <td><form:label path="invoiceNumber">Numer faktury: </form:label></td>
                     <td><form:input path="invoiceNumber"></form:input></td>
@@ -77,7 +81,10 @@
                 </tr>
                 <tfoot>
                 <tr>
-                    <td colspan="2"><input type="submit" value="filtruj"></td>
+                    <td colspan="2"><input class="btn btn-default" type="submit" value="Filtruj"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/invoice/add">Dodaj fakture</a></td>
                 </tr>
                 </tfoot>
             </table>

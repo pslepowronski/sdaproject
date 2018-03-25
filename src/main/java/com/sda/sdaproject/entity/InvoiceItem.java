@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class InvoiceItem {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer quantity;

@@ -1,16 +1,18 @@
 package com.sda.sdaproject.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
 
 @Getter
+@Builder
 @Entity
 @Table(name = "buyer")
 public class Buyer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "first_name")

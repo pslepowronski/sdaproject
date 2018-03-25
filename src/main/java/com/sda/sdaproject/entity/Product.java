@@ -3,17 +3,19 @@ package com.sda.sdaproject.entity;
 
 
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Builder
+@Getter
 @Entity
 @Table(name = "product")
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "price")
