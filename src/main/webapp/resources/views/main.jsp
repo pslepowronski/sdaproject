@@ -19,6 +19,7 @@
     }
     #nav{
         text-align-all: justify;
+        text
     }
 </style>
 <body>
@@ -34,15 +35,15 @@
         </tr>
         </thead>
         <tr>
-            <td>Username</td>
-            <td><input type="text" name="userid"></td>
+            <td>Uzytkownik</td>
+            <td><input type="text" name="userid" value="login"></td>
         </tr>
         <tr>
-            <td>Password</td>
-            <td><input type="password" name="passwd"></td>
+            <td>Haslo</td>
+            <td><input type="password" name="passwd" value="haslo"></td>
         </tr>
         <tr>
-            <td><button class="btn btn-success" type="submit">Zaloguj</button></td>
+            <td colspan="2"><input class="btn btn-success" type="submit" value="Zaloguj"></td>
         </tr>
         </table>
     </div>

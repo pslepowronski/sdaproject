@@ -10,7 +10,7 @@
 <form:form modelAttribute="fullInvoiceAfterEdit" action="editFullInvoice" method="post">
 <div id="contener">
     <div id="title">
-        ${invoice.invoiceNumber} <form:input path="invoiceNumber"></form:input>
+        ${invoice.invoiceNumber} <form:input path="invoiceNumber" value="${invoice.invoiceNumber}"></form:input>
     </div>
     <div id="dates">
         Data sprzedazy: ${invoice.sellByDate} <form:input path="sellByDate" value="${invoice.sellByDate}"></form:input><br>

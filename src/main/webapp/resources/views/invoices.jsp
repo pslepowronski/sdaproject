@@ -19,9 +19,6 @@
     <div id="nav">
     <jsp:include page="nawigacja.jsp"/>
     </div>
-    <div id="menu">
-
-    </div>
     <div id="main">
         <table class="table table hover">
             <thead>
@@ -57,7 +54,7 @@
     </div>
     <div id="main2">
 
-        <form:form modelAttribute="criteria" action="search" method="post">
+        <form:form modelAttribute="criteria" action="invoice/search" method="post">
             <table class="table table-striped">
                 <tr>
                     <td><form:label path="invoiceNumber">Numer faktury: </form:label></td>

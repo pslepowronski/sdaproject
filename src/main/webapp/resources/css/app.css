@@ -1,9 +1,14 @@
 body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
     background: white;
     color: black;
 }
 #contener{
     background: white;
+    min-height: 100%;
+    position: relative;
 }
 #nav{
     width: 100%;
@@ -53,7 +58,8 @@ body{
     text-align: center;
 }
 #footer{
-    clear: both;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     background: black;
     color: white;
