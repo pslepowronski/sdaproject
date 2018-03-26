@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Invoice {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "invoice_number")

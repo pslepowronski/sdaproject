@@ -1,4 +1,4 @@
-package com.sda.sdaproject.entity;
+package com.sda.sdaproject.dto;
 
 import lombok.*;
 

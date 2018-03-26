@@ -19,7 +19,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EntityScan("com.sda.sdaproject")
+@EntityScan("com.sda.sdaproject.entity")
 @EnableJpaRepositories(basePackages = "com.sda.sdaproject.repository")
 public class DatabaseConfig {
 

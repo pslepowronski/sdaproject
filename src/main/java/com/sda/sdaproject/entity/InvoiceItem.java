@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class InvoiceItem {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
 

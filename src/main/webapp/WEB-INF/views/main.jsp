@@ -2,9 +2,12 @@
 
 <html>
 <head>
-    <title>Cost Control App</title>
+    <title>Invoice App</title>
+    <link href="${pageContext.servletContext.contextPath}/resources/css/app.css" rel="stylesheet"></head>
+
 <body>
-Aplikacja do kontrolowania wydatków
+<jsp:include page="menu.jsp"/>
+Aplikacja
 
 </body>
 </html>
