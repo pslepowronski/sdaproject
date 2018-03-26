@@ -46,8 +46,8 @@ public class ProductService {
     public List<ProductDto> findByAllCriteria(ProductCriteriaDto c){
         return productRepository.findAll().stream().map(this::dtoFromProduct)
                 .filter(i->i.getName().contains(c.getName())|| Objects.isNull(c.getName()))
-                .filter(i->i.getPrice().compareTo(c.getPriceFrom()) <=0|| Objects.isNull(c.getPriceFrom()))
-                .filter(i->i.getPrice().compareTo(c.getPriceTo()) >=0|| Objects.isNull(c.getPriceTo()))
+                .filter(i->i.getPrice().compareTo(c.getPriceFrom()) < 0|| Objects.isNull(c.getPriceFrom()))
+                .filter(i->i.getPrice().compareTo(c.getPriceTo()) > 0|| Objects.isNull(c.getPriceTo()))
                 .filter(i->i.getQuantity()>=(c.getQuantityFrom())|| Objects.isNull(c.getQuantityFrom()))
                 .filter(i->i.getQuantity()<=(c.getQuantityTo())|| Objects.isNull(c.getQuantityTo()))
                 .collect(Collectors.toList());
@@ -57,11 +57,14 @@ public class ProductService {
         Product p = productFromDto(productDto);
         productRepository.save(p);
     }
-    public void complementProduct(ProductDto productDto){
-        Product p = productRepository.findById(productDto.getId());
-        ProductDto pdto = dtoFromProduct(p);
-        pdto.setQuantity(pdto.getQuantity()+productDto.getQuantity());
-        productRepository.save(productFromDto(pdto));
+    public List<ProductDto> complementProduct(ProductDto productDto){
+        List<ProductDto> list = findAllProducts();
+        for(ProductDto p : list){
+            if(productDto.getId()==p.getId()){
+                p.setQuantity(p.getQuantity()+productDto.getQuantity());
+            }
+        }
+        return list;
     }
 
     public void deleteProductById(Integer id){

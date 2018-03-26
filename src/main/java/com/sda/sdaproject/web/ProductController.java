@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,6 +30,7 @@ public class ProductController {
         ModelAndView mav = new ModelAndView("products");
         mav.addObject("allProducts", productService.findAllProducts());
         mav.addObject("productCriteria", new ProductCriteriaDto());
+        mav.addObject("quantityProduct", new ProductDto());
         return mav;
     }
     @PostMapping(value = "products/search")
@@ -49,10 +51,15 @@ public class ProductController {
         productService.addNewProduct(pDto);
         return "redirect:../products";
     }
-    @PostMapping(value = "products")
+    @PostMapping(value = "products/complement")
     public String complementProduct(@ModelAttribute("quantityProduct") ProductDto product,
                                     BindingResult result, Model model){
-        productService.complementProduct(product);
+        model.addAttribute(productService.complementProduct(product));
+        return "redirect:../products";
+    }
+    @PostMapping(value = "products/delete")
+    public String deleteInvoice(@RequestParam("productId") String id){
+        productService.deleteProductById(Integer.valueOf(id));
         return "redirect:../products";
     }
 

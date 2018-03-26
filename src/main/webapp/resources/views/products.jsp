@@ -30,19 +30,20 @@
                     <td>${product.name}</td>
                     <td>${product.price}</td>
                     <td>${product.quantity}</td>
-                    <%--<td>--%>
-                        <%--<form:form modelAttribute="quantityProduct" action="products/complement" method="post">--%>
-                            <%--<form:input type="hidden" path="id"/>--%>
-                            <%--<form:label path="quantity">Uzupelnij zapasy:</form:label>--%>
-                            <%--<form:input path="quantity"></form:input>--%>
-                        <%--</form:form>--%>
-                    <%--</td>--%>
-                    <%--<td>--%>
-                        <%--<form action="invoice/delete" method="post">--%>
-                            <%--<input class="btn btn-danger btn-sm" type="submit" name="deleteInvoice" value="Usun"/>--%>
-                            <%--<input type="hidden" name="productId" value="${product.id}"/>--%>
-                        <%--</form>--%>
-                    <%--</td>--%>
+                    <td>
+                        <form:form modelAttribute="quantityProduct" action="products/complement" method="post">
+                            <form:input type="hidden" path="id"/>
+                            <form:label path="quantity">Uzupelnij zapasy:</form:label>
+                            <form:input path="quantity"></form:input>
+                            <input class="btn btn-success" type="submit" value="Uzupelnij Zapasy">
+                        </form:form>
+                    </td>
+                    <td>
+                        <form action="products/delete" method="post">
+                            <input class="btn btn-danger btn-sm" type="submit" name="deleteProduct" value="Usun"/>
+                            <input type="hidden" name="productId" value="${product.id}"/>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
