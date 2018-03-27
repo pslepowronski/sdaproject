@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: ANIA
@@ -20,38 +21,44 @@
         <h3>Wybierz produkty</h3>
     </div>
     <div id="main">
-        <form action="products/complement" method="post">
-        <table class="table table hover">
+        <form:form modelAttribute="shortInvoice" action="addProductsToInvoice" method="post">
+        <table class="table table hover table-condensed">
             <thead>
             <tr>
                 <td>Id</td>
                 <td>Nazwa</td>
                 <td>Cena</td>
                 <td>Dostepna ilosc</td>
-                <td>Dodaj do faktury</td>
+                <td>Podaj ilosc sztuk do faktury</td>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${allProducts}" var="product">
+            <c:forEach items="${allProducts}" var="product" varStatus="iterator">
                 <tr>
                     <td>${product.id}</td>
                     <td>${product.name}</td>
                     <td>${product.price}</td>
                     <td>${product.quantity}</td>
                     <td>
-                            <input type="text" name="productQuantitySell" value="0">
-                            <input type="hidden" name="productId" value="${product.id}">
+                        <input type="text" size="3" name="quantity[${iterator.index}]" value="0">
+                        <input type="hidden" name="productId[${iterator.index}]" value="${product.id}">
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <input class="btn btn-success btn-sm" type="submit" value="Dodaj do faktury">
-        </form>
+        <input class="btn btn-success btn-sm" type="submit" value="Dodaj produkty do faktury">
+            <input type="hidden" name="buyerId" value="${buyer.id}">
+        </form:form>
     </div>
 
     <div id="main2">
-    <table>
+    <table class="table table hover table-condensed">
+        <thead>
+        <tr>
+            <td colspan="2">Dane nabywcy</td>
+        </tr>
+        </thead>
         <tr>
             <td>Data: </td>
             <td>${date}</td>

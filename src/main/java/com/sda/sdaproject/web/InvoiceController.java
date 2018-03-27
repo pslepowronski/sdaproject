@@ -3,7 +3,10 @@ package com.sda.sdaproject.web;
 import com.sda.sdaproject.bo.BuyerService;
 import com.sda.sdaproject.bo.InvoiceService;
 import com.sda.sdaproject.bo.ProductService;
+import com.sda.sdaproject.dto.BuyerDto;
 import com.sda.sdaproject.dto.InvoiceCriteriaDto;
+import com.sda.sdaproject.dto.InvoiceItemDto;
+import com.sda.sdaproject.dto.ShortInvoiceDto;
 import com.sda.sdaproject.repository.BuyerRepository;
 import com.sda.sdaproject.repository.InvoiceItemRepository;
 import com.sda.sdaproject.repository.InvoiceRepository;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class InvoiceController {
@@ -69,9 +73,29 @@ public class InvoiceController {
     @GetMapping(value = "addBuyerToInvoice/{id}")
     public ModelAndView addBuyerToInvoice(@PathVariable("id") Integer buyerId){
         ModelAndView mav = new ModelAndView("addProductsToInvoice");
+        mav.addObject("shortInvoice", new ShortInvoiceDto());
         mav.addObject("buyer", buyerService.findById(buyerId));
         mav.addObject("date", LocalDate.now());
         mav.addObject("allProducts", productService.findAllProducts());
+        return mav;
+    }
+    @GetMapping
+    public ModelAndView showInvoiceDetail(){
+        ModelAndView mav = new ModelAndView("invoiceDetail");
+        mav.addObject("shortInvoice", new ShortInvoiceDto());
+        mav.addObject("date", LocalDate.now());
+        mav.addObject("buyer", new BuyerDto());
+        mav.addObject("invoiceItems", new InvoiceItemDto());
+        return mav;
+    }
+    @PostMapping(value = "addBuyerToInvoice/addProductsToInvoice")
+    public ModelAndView addProductsToInvoice(@ModelAttribute("shortInvoice")ShortInvoiceDto sIDto, Model model,
+                                       BindingResult bindingResult){
+        ModelAndView mav = new ModelAndView("invoiceDetail");
+        mav.addObject("shortInvoice", new ShortInvoiceDto());
+        mav.addObject("date", LocalDate.now());
+        mav.addObject("buyer", buyerService.findById(sIDto.getBuyerId()));
+        mav.addObject("invoiceItems", invoiceService.findInvoiceItemsToInvoice(sIDto));
         return mav;
     }
 

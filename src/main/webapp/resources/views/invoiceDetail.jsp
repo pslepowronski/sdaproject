@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: ANIA
@@ -10,22 +11,34 @@
 <html>
 <head>
     <link href="${pageContext.servletContext.contextPath}/resources/css/invoiceFormat.css" rel="stylesheet"></head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <title>Invoice details</title>
 </head>
 <body>
+<%--<form:form modelAttribute="finalInvoice" action="finalInvoice" method="post">--%>
 <div id="contener">
     <div id="title">
-        ${invoice.invoiceNumber}
+        Faktura numer <input type="text" name="invoiceName" value="0000">
     </div>
     <div id="dates">
-        Data sprzedazy: ${invoice.sellByDate}<br>
-        Data platnisci: ${invoice.paymentDate}
+        Data sprzedazy: ${date}
+        Data platnisci:
+        <select name="dataPlatnosci">
+            <option>${date}</option>
+            <option>${date.plusMonths(1)}</option>
+            <option>${date.plusMonths(3)}</option>
+        </select>
     </div>
     <div id="buyer">
-        Nabywca: ${invoice.buyer}
+            Nabywca:<br>
+            ${buyer.firstName} ${buyer.lastName} ${buyer.companyName} <br>
+            ul. ${buyer.street} ${buyer.streetNumber} <br>
+            ${buyer.postcode} ${buyer.city} <br>
+            NIP: ${buyer.taxNumber} <br>
     </div>
     <div id="invoiceItems">
-        <c:forEach items="${invoice.invoiceItems}" var="invoiceItem">
+        <c:forEach items="${invoiceItems}" var="invoiceItem" varStatus="iterator">
+            ${iterator.index+1},
             ${invoiceItem.product.name},
             ${invoiceItem.product.price},
             ${invoiceItem.quantity},
@@ -33,13 +46,20 @@
         </c:forEach>
     </div>
     <div id="sumAndPay">
-        ${invoice.invoiceSum}
-        ${invoice.paymentType}
-        ${invoice.user.login}
+        <select name="typPlatnosci">
+            <option>gotowka</option>
+            <option>przelew</option>
+            <option>karta platnicza</option>
+            <option>kredyt kupiecki 1M</option>
+            <option>kredyt kupiecki 3M</option>
+        </select>
+
+
     </div>
 </div>
+<%--</form:form>--%>
+<a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/invoiceEdit">Edytuj</a>
+<a class="btn btn-success" href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/print">Drukuj</a>
 
-<a href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/invoiceEdit">Edytuj</a>
-<a href="${pageContext.servletContext.contextPath}/invoice/${invoice.id}/print">Drukuj</a>
 </body>
 </html>

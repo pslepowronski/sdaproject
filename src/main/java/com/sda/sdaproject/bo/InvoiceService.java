@@ -1,14 +1,8 @@
 package com.sda.sdaproject.bo;
 
-import com.sda.sdaproject.dto.FullInvoiceDto;
-import com.sda.sdaproject.dto.InvoiceCriteriaDto;
-import com.sda.sdaproject.dto.InvoiceDto;
-import com.sda.sdaproject.dto.InvoiceItemDto;
+import com.sda.sdaproject.dto.*;
 import com.sda.sdaproject.entity.*;
-import com.sda.sdaproject.repository.BuyerRepository;
-import com.sda.sdaproject.repository.InvoiceItemRepository;
-import com.sda.sdaproject.repository.InvoiceRepository;
-import com.sda.sdaproject.repository.UserRepository;
+import com.sda.sdaproject.repository.*;
 import com.sda.sdaproject.type.PaymentType;
 import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +23,16 @@ public class InvoiceService {
     private BuyerRepository buyerRepository;
     private UserRepository userRepository;
     private InvoiceItemRepository invoiceItemRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     public InvoiceService(InvoiceRepository invoiceRepository, BuyerRepository buyerRepository, UserRepository userRepository,
-                          InvoiceItemRepository invoiceItemRepository){
+                          InvoiceItemRepository invoiceItemRepository, ProductRepository productRepository){
         this.invoiceRepository = invoiceRepository;
         this.buyerRepository = buyerRepository;
         this.userRepository = userRepository;
         this.invoiceItemRepository = invoiceItemRepository;
+        this.productRepository = productRepository;
     }
 
     public List<InvoiceDto> findByPaymentDateCriteria(InvoiceCriteriaDto c){
@@ -124,6 +120,25 @@ public class InvoiceService {
     public FullInvoiceDto findFullInvoiceById(Integer id){
        Invoice invoice = invoiceRepository.findById(id);
        return mapFullInvoice(invoice);
+    }
+
+    public List<InvoiceItemDto> findInvoiceItemsToInvoice(ShortInvoiceDto shortInvoiceDto){
+        List<InvoiceItemDto> newList = new ArrayList<>();
+        List<Integer> listId = shortInvoiceDto.getProductId();
+        List<Integer> listQuantity = shortInvoiceDto.getQuantity();
+        for (Integer s : listQuantity){
+            if (s==0||s==null){
+                listId.remove(listQuantity.indexOf(s));
+                listQuantity.remove(s);
+            }else{
+                newList.add(InvoiceItemDto.builder()
+                        .product(productRepository.findById(listId.get(listQuantity.indexOf(s))))
+                        .quantity(s)
+                        .sum(productRepository.findById(listId.get(listQuantity.indexOf(s))).getPrice().multiply(new BigDecimal(s)))
+                        .build());
+            }
+        }
+        return newList;
     }
 
 

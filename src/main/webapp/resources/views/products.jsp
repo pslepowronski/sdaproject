@@ -14,7 +14,7 @@
         <jsp:include page="nawigacja.jsp"/>
     </div>
     <div id="main">
-        <table class="table table hover">
+        <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <td>Id</td>
@@ -32,7 +32,7 @@
                     <td>${product.quantity}</td>
                     <td>
                         <form action="products/complement" method="post">
-                            <input type="text" name="productQuantity" value="0">
+                            <input type="text" size="4" name="productQuantity" value="0">
                             <input class="btn btn-success btn-sm" type="submit" value="Uzupelnij">
                             <input type="hidden" name="productId" value="${product.id}">
                         </form>

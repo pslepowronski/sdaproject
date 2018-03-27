@@ -20,7 +20,7 @@
     <jsp:include page="nawigacja.jsp"/>
     </div>
     <div id="main">
-        <table class="table table hover">
+        <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <td>Numer faktury</td>
@@ -81,7 +81,7 @@
                     <td colspan="2"><input class="btn btn-default" type="submit" value="Filtruj"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/invoice/add">Dodaj fakture</a></td>
+                    <td colspan="2"><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/invoice/add">Dodaj nowa fakture</a></td>
                 </tr>
                 </tfoot>
             </table>

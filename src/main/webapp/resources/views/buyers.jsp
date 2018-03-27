@@ -17,11 +17,11 @@
 </head>
 <body>
 <div id="contener">
-    <div class="nav">
+    <div id="nav">
         <jsp:include page="nawigacja.jsp"/>
     </div>
     <div id="main">
-        <table class="table table-hover">
+        <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <th>Imię</th>
@@ -63,26 +63,26 @@
     <div id="main2">
         <form:form modelAttribute="criteria"
                    action="buyers/search" method="post">
-            <table>
+            <table class="table table-striped">
                 <tr>
-                    <form:label path="firstName">Imię: </form:label>
-                    <form:input path="firstName"></form:input><br/>
+                    <td><form:label path="firstName">Imię: </form:label></td>
+                    <td><form:input path="firstName"></form:input></td>
                 </tr>
                 <tr>
-                    <form:label path="lastName">Nazwisko: </form:label>
-                    <form:input path="lastName"></form:input><br/>
+                    <td><form:label path="lastName">Nazwisko: </form:label></td>
+                    <td><form:input path="lastName"></form:input><br/></td>
                 </tr>
                 <tr>
-                    <form:label path="companyName">Nazwa firmy: </form:label>
-                    <form:input path="companyName"></form:input><br/>
+                    <td><form:label path="companyName">Nazwa firmy: </form:label></td>
+                    <td><form:input path="companyName"></form:input></td>
                 </tr>
                 <tr>
-                    <form:label path="taxNumber">NIP: </form:label>
-                    <form:input path="taxNumber"></form:input><br/>
+                    <td><form:label path="taxNumber">NIP: </form:label></td>
+                    <td><form:input path="taxNumber"></form:input></td>
                 </tr>
                 <tr>
-                    <form:label path="city">Miasto: </form:label>
-                    <form:input path="city"></form:input><br/>
+                    <td><form:label path="city">Miasto: </form:label></td>
+                    <td><form:input path="city"></form:input></td>
                 </tr>
                 <tfoot>
 
@@ -90,7 +90,7 @@
                     <td colspan="2"><input class="btn btn-default" type="submit" value="Filtruj"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/buyer/add">Dodaj klienta</a></td>
+                    <td colspan="2"><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/buyer/add">Dodaj nowego klienta</a></td>
                 </tr>
                 </tfoot>
             </table>
