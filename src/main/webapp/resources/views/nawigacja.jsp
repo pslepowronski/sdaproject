@@ -18,7 +18,7 @@
         <td><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/products">Produkty</a></td>
         <td><a class="btn btn-success" target="_blank" href="${pageContext.servletContext.contextPath}/calculator">Kalkulator</a></td>
         <td><a class="btn btn-success" href="${pageContext.servletContext.contextPath}/calendar">Kalendarz platnosci</a></td>
-        <td><a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/main">Wyloguj</a></td>
+        <td><a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/">Wyloguj</a></td>
     </tr>
 </table>
 

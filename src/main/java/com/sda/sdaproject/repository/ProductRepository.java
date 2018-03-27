@@ -2,6 +2,7 @@ package com.sda.sdaproject.repository;
 
 import com.sda.sdaproject.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;

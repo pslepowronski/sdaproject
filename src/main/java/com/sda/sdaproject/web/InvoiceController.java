@@ -1,14 +1,20 @@
 package com.sda.sdaproject.web;
 
+import com.sda.sdaproject.bo.BuyerService;
 import com.sda.sdaproject.bo.InvoiceService;
+import com.sda.sdaproject.bo.ProductService;
 import com.sda.sdaproject.dto.InvoiceCriteriaDto;
+import com.sda.sdaproject.repository.BuyerRepository;
 import com.sda.sdaproject.repository.InvoiceItemRepository;
 import com.sda.sdaproject.repository.InvoiceRepository;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDate;
 
 @Controller
 public class InvoiceController {
@@ -16,12 +22,16 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
     private final InvoiceRepository invoiceRepository;
     private final InvoiceItemRepository invoiceItemRepository;
+    private final BuyerService buyerService;
+    private final ProductService productService;
 
     public InvoiceController(InvoiceService invoiceService, InvoiceRepository invoiceRepository,
-                             InvoiceItemRepository invoiceItemRepository){
+                             InvoiceItemRepository invoiceItemRepository, BuyerService buyerService, ProductService productService){
         this.invoiceService=invoiceService;
         this.invoiceRepository=invoiceRepository;
         this.invoiceItemRepository=invoiceItemRepository;
+        this.buyerService=buyerService;
+        this.productService=productService;
     }
     @GetMapping(value = "/invoice")
     public ModelAndView invoicePage(){
@@ -50,6 +60,24 @@ public class InvoiceController {
         invoiceService.deleteInvoice(Integer.parseInt(id));
         return "redirect:..invoices";
     }
+    @GetMapping(value = "invoice/add")
+    public ModelAndView addBuyerToInvoicePage(){
+        ModelAndView mav = new ModelAndView("addBuyerToInvoice");
+        mav.addObject("buyers",buyerService.findBuyers());
+        return mav;
+    }
+    @GetMapping(value = "addBuyerToInvoice/{id}")
+    public ModelAndView addBuyerToInvoice(@PathVariable("id") Integer buyerId){
+        ModelAndView mav = new ModelAndView("addProductsToInvoice");
+        mav.addObject("buyer", buyerService.findById(buyerId));
+        mav.addObject("date", LocalDate.now());
+        mav.addObject("allProducts", productService.findAllProducts());
+        return mav;
+    }
+
+
+
+
 //    @GetMapping(value = "/edit")
 //    public ModelAndView editFullInvoicePage
 //

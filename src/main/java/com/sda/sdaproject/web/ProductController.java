@@ -52,9 +52,9 @@ public class ProductController {
         return "redirect:../products";
     }
     @PostMapping(value = "products/complement")
-    public String complementProduct(@ModelAttribute("quantityProduct") ProductDto product,
-                                    BindingResult result, Model model){
-        model.addAttribute(productService.complementProduct(product));
+    public String complementProduct(@RequestParam("productId") String prodId,
+                                    @RequestParam("productQuantity") String quantity){
+        productService.complementProduct(Integer.valueOf(prodId),Integer.valueOf(quantity));
         return "redirect:../products";
     }
     @PostMapping(value = "products/delete")

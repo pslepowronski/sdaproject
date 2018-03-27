@@ -8,8 +8,7 @@ import com.sda.sdaproject.repository.BuyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,15 +44,29 @@ public class BuyerService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteBuyerById(Integer id){
+    public void deleteBuyer(Integer id) {
         buyerRepository.delete(id);
+    }
+
+
+    public BuyerDto findCostDetails(Integer id) {
+        return Optional.ofNullable(buyerRepository.findOne(id))
+                .map(this::mapBuyer)
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    public List<BuyerDto> findBuyers() {
+        return buyerRepository.findAll()
+                .stream()
+                .map(this::mapBuyer)
+                .collect(Collectors.toList());
     }
 
     public void addBuyer(NewBuyerDto buyer){
         buyerRepository.save(getBuyerFromDto(buyer));
     }
 
-    private Buyer getBuyerFromDto(NewBuyerDto buyer){
+    private Buyer getBuyerFromDto(NewBuyerDto buyer) {
         return Buyer.builder()
                 .firstName(buyer.getFirstName())
                 .lastName(buyer.getLastName())
@@ -65,5 +78,8 @@ public class BuyerService {
                 .city(buyer.getCity())
                 .id(buyer.getId())
                 .build();
+    }
+    public BuyerDto findById(Integer id){
+        return mapBuyer(buyerRepository.findById(id));
     }
 }
